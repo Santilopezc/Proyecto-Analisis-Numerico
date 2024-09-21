@@ -2,7 +2,7 @@
 **Proyecto de la Clase de Analisis Numerico**
 En el proyecto estan implementados varios metodos numericos vistos en clase y desplegados en una interfaz de streamlit con Python.
 
-** Metodos no lineales:**
+**Metodos no lineales:**
 - Bisección
 - Regla Falsa
 - Secante (Pendiente)
@@ -10,7 +10,7 @@ En el proyecto estan implementados varios metodos numericos vistos en clase y de
 - Punto Fijo (Pendiente)
 - Raices multiples (Pendiente)
 
-** Metodos para sistemas de ecuaciones:**
+**Metodos para sistemas de ecuaciones:**
 - Eliminación Gaussiana
 - Factorización LU
 
