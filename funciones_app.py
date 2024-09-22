@@ -69,3 +69,23 @@ def secante_app(cols,error):
         aprox, table = metodos_no_lineales.secante(function, x0, x1, tol, n,True)
         st.write(aprox)
         st.dataframe(table)
+
+def newton_app(cols, error):
+    col1, col2, col3 = cols
+    function = st.text_input('Ingrese la función a evaluar', value='np.exp(-x) + x**2 -13')
+    function = eval(f'lambda x: {function}')
+    with col1:
+        x0 = st.number_input('Valor de x0', value=0)
+    with col2:
+        tol = st.number_input('Tolerancia', value=0.0001)
+    with col3:
+        n = st.number_input('# Iteraciones', value=100)
+
+    if error == "Decimales Correctos":
+        aprox, table = metodos_no_lineales.newton(function, x0, tol, n)
+        st.write(aprox)
+        st.dataframe(table)
+    else:
+        aprox, table = metodos_no_lineales.newton(function, x0, tol, n,True)
+        st.write(aprox)
+        st.dataframe(table)

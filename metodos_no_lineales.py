@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
-
+from scipy.misc import derivative
 
 
 
@@ -37,7 +37,6 @@ def bisection(function, a, b, tol, n, use_sig_digits = False):
             # Stop when error is less than tolerance
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
-    pass
 
 def calculate_error(use_sig_digits: bool, x_m: float, x_list: list, index: int):
     if use_sig_digits:
@@ -95,10 +94,26 @@ def secante(function, x0, x1, tol, n, use_sig_digits = False):
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
             
-def newton():
-    pass
-def punto_fijo():
-    pass
+def newton(function,x0, tol, n, use_sig_digits = False):
+    errors = [100]
+    x_m_list = []
+    f_list = []
+    x_m = x0
+    for i in range(n):
+        df = derivative(function, x_m)
+        x_m = x_m - function(x_m)/df
+        x_m_list.append(x_m)
+        f_x_m = function(x_m)
+        f_list.append(f_x_m)
+        if f_x_m == 0:
+            return x_m, make_table(x_m_list, f_list, errors)
+        if i > 0:
+            error = calculate_error(use_sig_digits, x_m, x_m_list, i)
+            errors.append(error)
+            if error < tol:
+                return x_m, make_table(x_m_list, f_list, errors)
+
+
 
 def make_table(x_m_list, f_list, errors):
     table = pd.DataFrame({
@@ -110,3 +125,6 @@ def make_table(x_m_list, f_list, errors):
 
 def trial_function(x):
     return np.exp(-x) + x**2 -13
+
+def punto_fijo():
+    pass

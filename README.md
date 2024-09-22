@@ -6,7 +6,7 @@ En el proyecto estan implementados varios metodos numericos vistos en clase y de
 - Bisección
 - Regla Falsa
 - Secante
-- Newton (Pendiente)
+- Newton
 - Punto Fijo (Pendiente)
 - Raices multiples (Pendiente)
 
