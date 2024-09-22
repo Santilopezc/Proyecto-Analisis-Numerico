@@ -9,7 +9,6 @@ def bisection(function, a, b, tol, n, use_sig_digits = False):
     # Add verification that f is continous in [a,b]
     # Add graph
     # Add chart
-
     # 0. Verify if f(a) * f(b) < 0
     if function(a) * function(b) > 0:
         st.warning(f'El intervalo [{a},{b}] es inadecuado')
@@ -75,8 +74,27 @@ def regla_falsa(function, a, b, tol, n, use_sig_digits = False):
 
 
 
-def secante():
-    pass
+def secante(function, x0, x1, tol, n, use_sig_digits = False):
+    errors = [100]
+    x_m_list = []
+    f_list = []
+    x_m_prev = x0
+    x_m = x1
+    for i in range(n):
+        x_m_new = x_m - (function(x_m) * (x_m - x_m_prev)) / (function(x_m) - function(x_m_prev))
+        x_m_prev = x_m
+        x_m = x_m_new
+        x_m_list.append(x_m)
+        f_x_m = function(x_m)
+        f_list.append(f_x_m)
+        if f_x_m == 0:
+            return x_m, make_table(x_m_list, f_list, errors)
+        if i > 0:
+            error = calculate_error(use_sig_digits, x_m, x_m_list, i)
+            errors.append(error)
+            if error < tol:
+                return x_m, make_table(x_m_list, f_list, errors)
+            
 def newton():
     pass
 def punto_fijo():
@@ -92,7 +110,3 @@ def make_table(x_m_list, f_list, errors):
 
 def trial_function(x):
     return np.exp(-x) + x**2 -13
-
-x_m, table = bisection(trial_function, 0, 5, 0.0001, 100, False)
-print(x_m)
-print(table)

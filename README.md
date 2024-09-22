@@ -5,7 +5,7 @@ En el proyecto estan implementados varios metodos numericos vistos en clase y de
 ** Metodos no lineales:**
 - Bisección
 - Regla Falsa
-- Secante (Pendiente)
+- Secante
 - Newton (Pendiente)
 - Punto Fijo (Pendiente)
 - Raices multiples (Pendiente)

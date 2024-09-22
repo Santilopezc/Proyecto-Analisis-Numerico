@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from funciones_interfaz import biseccion_interfaz, regla_falsa_interfaz
+import funciones_app
 
 st.title('Metodos Numericos')
 
@@ -16,10 +16,14 @@ with col2:
     decimals = st.number_input(f'Ingrese el número de {error}', min_value=1, max_value=10, value=3)
 method = st.selectbox(
 "Que metodo quieres utilizar?",
-("Biseccion", "Regla Falsa"),)
+("Biseccion", "Regla Falsa", "Secante"),)
+
+methods = {
+    "Biseccion": funciones_app.biseccion_app,
+    "Regla Falsa": funciones_app.regla_falsa_app,
+    "Secante": funciones_app.secante_app,
+}
 
 cols = st.columns([1,1,1,1])
-if method == "Biseccion":
-    biseccion_interfaz(cols,error)
-elif method == "Regla Falsa":
-    regla_falsa_interfaz(cols, error)
+methods[method](cols, error)
+
