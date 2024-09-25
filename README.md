@@ -1,7 +1,8 @@
 # Proyecto-Analisis-Numerico
-Pagina del proyecto: https://cwroqdtvt2mopjjtapptuj2.streamlit.app
 
 **Proyecto de la Clase de Analisis Numerico**
+
+Pagina del proyecto: https://cwroqdtvt2mopjjtapptuj2.streamlit.app
 
 En el proyecto estan implementados varios metodos numericos vistos en clase y desplegados en una interfaz de streamlit con Python.
 
@@ -11,13 +12,13 @@ En el proyecto estan implementados varios metodos numericos vistos en clase y de
 - Secante
 - Newton
 - Punto Fijo
-- Raices multiples 1 y 2 (1 Pendiente)
+- Raices multiples 1 y 2 (Pendiente)
 
 **Metodos para sistemas de ecuaciones:**
 - Eliminación Gaussiana
 - Factorización LU
 
-Para utilizar la interfaz tienes que correr el comando: ```streamlit run app.py```
+Para utilizar la interfaz de forma local tienes que correr el comando: ```streamlit run app.py```
 
 Cosas por hacer:
 - Agregar graficas en la interfaz de streamlit
