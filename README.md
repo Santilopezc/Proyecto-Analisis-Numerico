@@ -1,5 +1,5 @@
 # Proyecto-Analisis-Numerico
-Pagina Proyecto: https://cwroqdtvt2mopjjtapptuj2.streamlit.app
+Pagina del proyecto: https://cwroqdtvt2mopjjtapptuj2.streamlit.app
 
 **Proyecto de la Clase de Analisis Numerico**
 
