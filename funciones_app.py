@@ -116,10 +116,10 @@ def raices_multiples2_app(cols, error, tol):
         n = st.number_input('# Iteraciones', value=100)
 
     if error == "Decimales Correctos":
-        aprox, table = metodos_no_lineales.newton(function, x0, tol, n)
+        aprox, table = metodos_no_lineales.raices_multiples2(function, x0, tol, n)
         st.write(aprox)
         st.dataframe(table)
     else:
-        aprox, table = metodos_no_lineales.newton(function, x0, tol, n,True)
+        aprox, table = metodos_no_lineales.raices_multiples2(function, x0, tol, n,True)
         st.write(aprox)
         st.dataframe(table)
