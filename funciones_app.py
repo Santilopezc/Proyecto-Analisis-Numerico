@@ -12,7 +12,7 @@ def biseccion_app(cols, error,tol):
     with col1:
         a = st.number_input('Valor de a', step=1.,format="%.4f", value = 0.0)
     with col2:
-        b = st.number_input('Valor de b', step=1.,format="%.4f", value = 0.0)
+        b = st.number_input('Valor de b', step=1.,format="%.4f", value = 5.0)
     with col3:
         n = st.number_input('# Iteraciones', value=100)
     if error == "Decimales Correctos":
