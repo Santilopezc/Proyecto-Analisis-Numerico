@@ -20,7 +20,7 @@ with col2:
 if error == "Decimales Correctos":
     tol = 0.5 * 10 ** (-decimals)
 else:
-    tol = 10 ** (-decimals)
+    tol = 5 * 10 ** (-decimals)
 
 method = st.selectbox(
 "Que metodo quieres utilizar?",
