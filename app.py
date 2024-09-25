@@ -13,8 +13,15 @@ with col1:
     "Quieres utilizar Cifras Significativas o Decimales Correctos?",
     ("Decimales Correctos", "Cifras Significatias"),
 )
+
 with col2:
     decimals = st.number_input(f'Ingrese el número de {error}', min_value=1, max_value=10, value=3)
+
+if error == "Decimales Correctos":
+    tol = 0.5 * 10 ** (-decimals)
+else:
+    tol = 10 ** (-decimals)
+
 method = st.selectbox(
 "Que metodo quieres utilizar?",
 ("Biseccion", "Regla Falsa", "Secante", "Newton", "Punto Fijo", "Raices Multiples 2"),)
@@ -28,9 +35,9 @@ methods = {
     "Raices Multiples 2":funciones_app.raices_multiples2_app,
 }
 if method in ["Biseccion", "Regla Falsa", "Secante", "Punto Fijo"]:
-    cols = st.columns([1,1,1,1])
-else:
     cols = st.columns([1,1,1])
+else:
+    cols = st.columns([1,1])
 
 methods[method](cols, error)
 
