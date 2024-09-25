@@ -63,9 +63,6 @@ def regla_falsa(function, a, b, tol, n, use_sig_digits = False):
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
 
-
-
-
 def secante(function, x0, x1, tol, n, use_sig_digits = False):
     errors = [100]
     x_m_list = []
@@ -125,9 +122,27 @@ def punto_fijo(function, g, x0, tol, n, use_sig_digits = False):
                 return x_m, make_table(x_m_list, f_list, errors)
 
 def raices_multiples1():
+    # 
     pass
-def raices_multiples2():
-    pass
+def raices_multiples2(function, x0, tol, n, use_sig_digits = False):
+    errors = [100]
+    x_m_list = []
+    f_list = []
+    x_m = x0
+    for i in range(n):
+        df = derivative(function, x_m)
+        d2f = derivative(df, x_m)
+        x_m = x_m - (function(x_m) * df) / (df**2 - function(x_m) * d2f)
+        x_m_list.append(x_m)
+        f_x_m = function(x_m)
+        f_list.append(f_x_m)
+        if f_x_m == 0:
+            return x_m, make_table(x_m_list, f_list, errors)
+        if i > 0:
+            error = calculate_error(use_sig_digits, x_m, x_m_list, i)
+            errors.append(error)
+            if error < tol:
+                return x_m, make_table(x_m_list, f_list, errors)
 
 def calculate_error(use_sig_digits: bool, x_m: float, x_list: list, index: int):
     if use_sig_digits:

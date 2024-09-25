@@ -7,8 +7,8 @@ En el proyecto estan implementados varios metodos numericos vistos en clase y de
 - Regla Falsa
 - Secante
 - Newton
-- Punto Fijo (Pendiente)
-- Raices multiples (Pendiente)
+- Punto Fijo
+- Raices multiples 1 y 2 (1 Pendiente)
 
 **Metodos para sistemas de ecuaciones:**
 - Eliminación Gaussiana
