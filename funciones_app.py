@@ -105,14 +105,12 @@ def punto_fijo_app(cols, error, tol):
         st.dataframe(table)
 
 def raices_multiples2_app(cols, error, tol):
-    col1, col2, col3 = cols
+    col1, col2 = cols
     function = st.text_input('Ingrese la función a evaluar', value='math.exp(-x) + x**2 -13')
     function = eval(f'lambda x: {function}')
     with col1:
         x0 = st.number_input('Valor de x0',step=1.,format="%.4f", value=0.0)
     with col2:
-        tol = st.number_input('Tolerancia', value=0.0001)
-    with col3:
         n = st.number_input('# Iteraciones', value=100)
 
     if error == "Decimales Correctos":
