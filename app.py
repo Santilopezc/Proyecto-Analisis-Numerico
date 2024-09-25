@@ -39,5 +39,5 @@ if method in ["Biseccion", "Regla Falsa", "Secante", "Punto Fijo"]:
 else:
     cols = st.columns([1,1])
 
-methods[method](cols, error)
+methods[method](cols, error,tol)
 
