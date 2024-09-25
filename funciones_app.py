@@ -100,7 +100,7 @@ def punto_fijo_app(cols, error, tol):
         st.write(aprox)
         st.dataframe(table)
     else:
-        aprox, table = metodos_no_lineales.secante(function, g,x0, tol, n,True)
+        aprox, table = metodos_no_lineales.punto_fijo(function, g,x0, tol, n,True)
         st.write(aprox)
         st.dataframe(table)
 
