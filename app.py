@@ -16,15 +16,16 @@ with col2:
     decimals = st.number_input(f'Ingrese el número de {error}', min_value=1, max_value=10, value=3)
 method = st.selectbox(
 "Que metodo quieres utilizar?",
-("Biseccion", "Regla Falsa", "Secante", "Newton"),)
+("Biseccion", "Regla Falsa", "Secante", "Newton", "Punto Fijo"),)
 
 methods = {
     "Biseccion": funciones_app.biseccion_app,
     "Regla Falsa": funciones_app.regla_falsa_app,
     "Secante": funciones_app.secante_app,
     "Newton": funciones_app.newton_app,
+    "Punto Fijo": funciones_app.punto_fijo_app,
 }
-if method in ["Biseccion", "Regla Falsa", "Secante"]:
+if method in ["Biseccion", "Regla Falsa", "Secante", "Punto Fijo"]:
     cols = st.columns([1,1,1,1])
 else:
     cols = st.columns([1,1,1])

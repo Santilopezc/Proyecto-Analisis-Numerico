@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
+import math
 
 import metodos_no_lineales
 
@@ -72,10 +73,10 @@ def secante_app(cols,error):
 
 def newton_app(cols, error):
     col1, col2, col3 = cols
-    function = st.text_input('Ingrese la función a evaluar', value='np.exp(-x) + x**2 -13')
+    function = st.text_input('Ingrese la función a evaluar', value='math.exp(-x) + x**2 -13')
     function = eval(f'lambda x: {function}')
     with col1:
-        x0 = st.number_input('Valor de x0', value=0)
+        x0 = st.number_input('Valor de x0',step=1.,format="%.3f", value=0.0)
     with col2:
         tol = st.number_input('Tolerancia', value=0.0001)
     with col3:
@@ -87,5 +88,27 @@ def newton_app(cols, error):
         st.dataframe(table)
     else:
         aprox, table = metodos_no_lineales.newton(function, x0, tol, n,True)
+        st.write(aprox)
+        st.dataframe(table)
+def punto_fijo_app(cols, error):
+    col1, col2, col3, col4 = cols
+    function = st.text_input('Ingrese la función a evaluar', value='np.exp(-x) + x**2 -13')
+    function = eval(f'lambda x: {function}')
+    with col1:
+        x0 = st.number_input('Valor de x0', value=0)
+    with col2:
+        g = st.text_input('Ingrese g(x)', value='np.exp(-x) + x**2 -13')
+    g = eval(f'lambda x: {g}')
+    with col3:
+        tol = st.number_input('Tolerancia', value=0.0001)
+    with col4:
+        n = st.number_input('# Iteraciones', value=100)
+
+    if error == "Decimales Correctos":
+        aprox, table = metodos_no_lineales.punto_fijo(function, g,x0, tol, n)
+        st.write(aprox)
+        st.dataframe(table)
+    else:
+        aprox, table = metodos_no_lineales.secante(function, g,x0, tol, n,True)
         st.write(aprox)
         st.dataframe(table)

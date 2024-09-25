@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 from scipy.misc import derivative
+import math
 
 
 
@@ -10,7 +11,7 @@ def bisection(function, a, b, tol, n, use_sig_digits = False):
     # Add graph
     # Add chart
     # 0. Verify if f(a) * f(b) < 0
-    if function(a) * function(b) > 0:
+    if function(a) * function(b) >= 0:
         st.warning(f'El intervalo [{a},{b}] es inadecuado')
         return None, None
     errors = [100]
@@ -38,16 +39,8 @@ def bisection(function, a, b, tol, n, use_sig_digits = False):
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
 
-def calculate_error(use_sig_digits: bool, x_m: float, x_list: list, index: int):
-    if use_sig_digits:
-        error = abs((x_m - x_list[index-1]) / x_m)
-    else:
-        error = abs(x_m - x_list[index-1])
-    return error
-    
-
 def regla_falsa(function, a, b, tol, n, use_sig_digits = False):
-    if function(a) * function(b) > 0:
+    if function(a) * function(b) >= 0:
         st.warning(f'El intervalo [{a},{b}] es inadecuado')
         return None, None
     errors = [100]
@@ -113,7 +106,35 @@ def newton(function,x0, tol, n, use_sig_digits = False):
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
 
+def punto_fijo(function, g, x0, tol, n, use_sig_digits = False):
+    errors = [100]
+    x_m_list = []
+    f_list = []
+    x_m = x0
+    for i in range(n):
+        x_m = g(x_m)
+        x_m_list.append(x_m)
+        f_x_m = function(x_m)
+        f_list.append(f_x_m)
+        if f_x_m == 0:
+            return x_m, make_table(x_m_list, f_list, errors)
+        if i > 0:
+            error = calculate_error(use_sig_digits, x_m, x_m_list, i)
+            errors.append(error)
+            if error < tol:
+                return x_m, make_table(x_m_list, f_list, errors)
 
+def raices_multiples1():
+    pass
+def raices_multiples2():
+    pass
+
+def calculate_error(use_sig_digits: bool, x_m: float, x_list: list, index: int):
+    if use_sig_digits:
+        error = abs((x_m - x_list[index-1]) / x_m)
+    else:
+        error = abs(x_m - x_list[index-1])
+    return error
 
 def make_table(x_m_list, f_list, errors):
     table = pd.DataFrame({
@@ -126,5 +147,3 @@ def make_table(x_m_list, f_list, errors):
 def trial_function(x):
     return np.exp(-x) + x**2 -13
 
-def punto_fijo():
-    pass
