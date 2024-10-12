@@ -42,7 +42,7 @@ if method in ["Biseccion", "Regla Falsa", "Secante", "Punto Fijo"]:
 if method in ["Newton",  "Raices Multiples 2"]:
     cols = st.columns([1,1])
 if method in ["Jacobi", "Gauss_Seidel", "SOR"]:
-    cols = st.columns([1,1,1,1])
+    cols = st.columns([1,1])
 
 methods[method](cols, error,tol)
 
