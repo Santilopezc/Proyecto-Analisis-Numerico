@@ -15,8 +15,9 @@ En el proyecto estan implementados varios metodos numericos vistos en clase y de
 - Raices multiples 1 y 2 (Pendiente)
 
 **Metodos para sistemas de ecuaciones:**
-- Eliminación Gaussiana
-- Factorización LU
+- Jacobi
+- Gauss-Seidel
+- SOR
 
 Para utilizar la interfaz de forma local tienes que correr el comando: ```streamlit run app.py```
 
