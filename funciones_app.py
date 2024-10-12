@@ -136,12 +136,12 @@ def jacobi_app(cols, error, tol):
      if error == "Decimales Correctos":
         aprox, table, radio = metodos_no_lineales.Jacobi(A,b,X_0,tol,n)
         st.write(aprox)
-         st.write(radio)
+        st.write("El radio espectral de la matriz de transformación es:" + str(radio))
         st.dataframe(table)
     else:
         aprox, table, radio = metodos_no_lineales.Jacobi(A,b,X_0, tol, n,True)
         st.write(aprox)
-        st.write(radio)
+        st.write("El radio espectral de la matriz de transformación es:" + str(radio))
         st.dataframe(table)
 
     
