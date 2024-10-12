@@ -134,12 +134,53 @@ def jacobi_app(cols, error, tol):
         b = st.text_input('Ingrese el vector de resultados (Formato [] y separados por ,)')
 
      if error == "Decimales Correctos":
-        aprox, table, radio = metodos_no_lineales.Jacobi(A,b,X_0,tol,n)
+        aprox, table, radio = Sistemas_ecuaciones_numerico.Jacobi(A,b,X_0,tol,n)
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es:" + str(radio))
         st.dataframe(table)
     else:
-        aprox, table, radio = metodos_no_lineales.Jacobi(A,b,X_0, tol, n,True)
+        aprox, table, radio = Sistemas_ecuaciones_numerico.Jacobi(A,b,X_0, tol, n,True)
+        st.write(aprox)
+        st.write("El radio espectral de la matriz de transformación es:" + str(radio))
+        st.dataframe(table)
+
+def gauss_seidel_app(cols, error, tol):
+    col1, col2 = cols
+    with col1:
+        A = st.text_input('Ingrese la matriz de coeficientes (Formato [[]] y separados por ,)')
+        n = st.number_input('# Iteraciones', value=100)
+    with col2:
+        X_0 = st.text_input('Ingrese los valores iniciales (Formato [] y separados por ,)')
+        b = st.text_input('Ingrese el vector de resultados (Formato [] y separados por ,)')
+
+     if error == "Decimales Correctos":
+        aprox, table, radio = Sistemas_ecuaciones_numerico.Gauss_Seidel(A,b,X_0,tol,n)
+        st.write(aprox)
+        st.write("El radio espectral de la matriz de transformación es:" + str(radio))
+        st.dataframe(table)
+    else:
+        aprox, table, radio = Sistemas_ecuaciones_numerico.Gauss_Seidel(A,b,X_0, tol, n,True)
+        st.write(aprox)
+        st.write("El radio espectral de la matriz de transformación es:" + str(radio))
+        st.dataframe(table)
+
+def SOR_app(cols, error, tol):
+    col1, col2 = cols
+    with col1:
+        A = st.text_input('Ingrese la matriz de coeficientes (Formato [[]] y separados por ,)')
+        n = st.number_input('# Iteraciones', value=100)
+        w = st.number_input('Parámetro de Relajación', value=1, min_value = 0, max_value = 2, step = 0.1)
+    with col2:
+        X_0 = st.text_input('Ingrese los valores iniciales (Formato [] y separados por ,)')
+        b = st.text_input('Ingrese el vector de resultados (Formato [] y separados por ,)')
+
+     if error == "Decimales Correctos":
+        aprox, table, radio = Sistemas_ecuaciones_numerico.Jacobi(A,b,X_0,tol,n)
+        st.write(aprox)
+        st.write("El radio espectral de la matriz de transformación es:" + str(radio))
+        st.dataframe(table)
+    else:
+        aprox, table, radio = Sistemas_ecuaciones_numerico.Jacobi(A,b,X_0, tol, n,True)
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es:" + str(radio))
         st.dataframe(table)
