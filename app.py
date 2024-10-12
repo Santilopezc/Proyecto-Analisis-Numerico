@@ -35,7 +35,7 @@ methods = {
     "Raices Multiples 2":funciones_app.raices_multiples2_app,
     "Jacobi":funciones_app.jacobi_app,
     "Gauss_Seidel":funciones_app.gauss_seidel_app,
-    "SOR":funciones_app.sor_app
+    "SOR":funciones_app.SOR_app
 }
 if method in ["Biseccion", "Regla Falsa", "Secante", "Punto Fijo"]:
     cols = st.columns([1,1,1])
