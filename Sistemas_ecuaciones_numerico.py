@@ -24,26 +24,28 @@ def rad_esp(T):
 
 def Jacobi(A,b,X_i,tol,niter, error_rel = False):
    errores = [ 100]
-   n = len(A)
   
+   n = len(b.split())
    X_val = []
    X_num = []
    for i in range(n):
        X_num.append("X_"+ str(i+1))
    X_val.append(X_num)
-   X_val.append(X_i)
-   Am = np.matrix(A)
-   bm = np.array(b)
-   X = np.array(X_i)
+   
+   Am = np.array([list(map(int, row.split())) for row in A.split(';')])
+   bm = np.array(list(map(int, b.split())) )
+   X = np.array(list(map(int, X_i.split())) )
    D = np.diag(np.diagonal(Am))
    L = -1*np.tril(Am,-1)
    U = -1*np.triu(Am,1)
-   
+   X_val.append(X)
+   #print(X_val)
    T = np.linalg.inv(D)@(L+U)
    C = np.linalg.inv(D)@bm
    
+ 
    #print(T@X)
-   E = (Am @ X) - b
+   E = (Am @ X) - bm
    
    if np.allclose(E, np.zeros(n), atol = tol) :
            return(make_tableMat(X_val,errores))
@@ -61,27 +63,26 @@ def Jacobi(A,b,X_i,tol,niter, error_rel = False):
 
 def Gauss_Seidel(A,b,X_i,tol,niter, error_rel = False):
    errores = [ 100]
-   n = len(A)
-  
+   n = len(b.split())
    X_val = []
    X_num = []
    for i in range(n):
        X_num.append("X_"+ str(i+1))
    X_val.append(X_num)
-   X_val.append(X_i)
-   Am = np.matrix(A)
    
-   bm = np.array(b)
-   X = np.array(X_i)
+   Am = np.array([list(map(int, row.split())) for row in A.split(';')])
+   bm = np.array(list(map(int, b.split())) )
+   X = np.array(list(map(int, X_i.split())) )
    D = np.diag(np.diagonal(Am))
    L = -1*np.tril(Am,-1)
    U = -1*np.triu(Am,1)
+   X_val.append(X)
    
    T = np.linalg.inv(D-L)@(U)
    C = np.linalg.inv(D-L)@np.transpose(bm)
    #print(bm)
    #print(T@X)
-   E = (Am @ X) - b
+   E = (Am @ X) - bm
    
    if np.allclose(E, np.zeros(n), atol = tol) :
            return(make_tableMat(X_val,errores))
@@ -98,27 +99,25 @@ def Gauss_Seidel(A,b,X_i,tol,niter, error_rel = False):
    
 def SOR(A,b,X_i,tol,niter,w, error_rel = False):
    errores = [ 100]
-   n = len(A)
-  
+   n = len(b.split())
    X_val = []
    X_num = []
    for i in range(n):
        X_num.append("X_"+ str(i+1))
    X_val.append(X_num)
-   X_val.append(X_i)
-   Am = np.matrix(A)
    
-   bm = np.array(b)
-   X = np.array(X_i)
+   Am = np.array([list(map(int, row.split())) for row in A.split(';')])
+   bm = np.array(list(map(int, b.split())) )
+   X = np.array(list(map(int, X_i.split())) )
    D = np.diag(np.diagonal(Am))
    L = -1*np.tril(Am,-1)
    U = -1*np.triu(Am,1)
-   
+   X_val.append(X)
    T = np.linalg.inv(D-w*L)@((1-w)*D+w*U)
    C = w*np.linalg.inv(D-w*L)@np.transpose(bm)
    print(bm)
    #print(T@X)
-   E = (Am @ X) - b
+   E = (Am @ X) - bm
    
    if np.allclose(E, np.zeros(n), atol = tol) :
            return(make_tableMat(X_val,errores))
