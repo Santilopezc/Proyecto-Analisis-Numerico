@@ -4,6 +4,8 @@ import streamlit as st
 import math
 
 import metodos_no_lineales
+import Sistemas_ecuaciones_numerico
+
 
 def biseccion_app(cols, error,tol):
     col1, col2, col3 = cols
@@ -121,3 +123,25 @@ def raices_multiples2_app(cols, error, tol):
         aprox, table = metodos_no_lineales.raices_multiples2(function, x0, tol, n,True)
         st.write(aprox)
         st.dataframe(table)
+
+def jacobi_app(cols, error, tol):
+    col1, col2 = cols
+    with col1:
+        A = st.text_input('Ingrese la matriz de coeficientes (Formato [[]] y separados por ,)')
+        n = st.number_input('# Iteraciones', value=100)
+    with col2:
+        X_0 = st.text_input('Ingrese los valores iniciales (Formato [] y separados por ,)')
+        b = st.text_input('Ingrese el vector de resultados (Formato [] y separados por ,)')
+
+     if error == "Decimales Correctos":
+        aprox, table, radio = metodos_no_lineales.Jacobi(A,b,X_0,tol,n)
+        st.write(aprox)
+         st.write(radio)
+        st.dataframe(table)
+    else:
+        aprox, table, radio = metodos_no_lineales.Jacobi(A,b,X_0, tol, n,True)
+        st.write(aprox)
+        st.write(radio)
+        st.dataframe(table)
+
+    
