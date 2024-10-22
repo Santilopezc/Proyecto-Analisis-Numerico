@@ -24,7 +24,7 @@ else:
 
 method = st.selectbox(
 "Que metodo quieres utilizar?",
-("Biseccion", "Regla Falsa", "Secante", "Newton", "Punto Fijo", "Raices Multiples 2"),)
+("Biseccion", "Regla Falsa", "Secante", "Newton", "Punto Fijo", "Raices Multiples 2", "Jacobi", "Gauss_Seidel", "SOR"),)
 
 methods = {
     "Biseccion": funciones_app.biseccion_app,
@@ -33,10 +33,15 @@ methods = {
     "Newton": funciones_app.newton_app,
     "Punto Fijo": funciones_app.punto_fijo_app,
     "Raices Multiples 2":funciones_app.raices_multiples2_app,
+    "Jacobi":funciones_app.jacobi_app,
+    "Gauss_Seidel":funciones_app.gauss_seidel_app,
+    "SOR":funciones_app.SOR_app
 }
 if method in ["Biseccion", "Regla Falsa", "Secante", "Punto Fijo"]:
     cols = st.columns([1,1,1])
-else:
+if method in ["Newton",  "Raices Multiples 2"]:
+    cols = st.columns([1,1])
+if method in ["Jacobi", "Gauss_Seidel", "SOR"]:
     cols = st.columns([1,1])
 
 methods[method](cols, error,tol)
