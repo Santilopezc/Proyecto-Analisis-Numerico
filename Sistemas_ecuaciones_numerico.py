@@ -13,8 +13,10 @@ def make_tableMat(x_m_list,errores ):
 def calculate_error(X,X_L, error_rel):
 
     error = np.max(np.abs(X-X_L))
-    if error_rel:
+    if error_rel == 1:
         error = np.max(np.abs((X-X_L)/X))
+    if error_rel == 2:
+        error = np.max(np.abs((X-X_L)))/np.max(np.abs(X))
     return(error)
 
 def rad_esp(T):
@@ -39,7 +41,7 @@ def Jacobi(A,b,X_i,tol,niter, error_rel = False):
    L = -1*np.tril(Am,-1)
    U = -1*np.triu(Am,1)
    X_val.append(X)
-   #print(X_val)
+   
    T = np.linalg.inv(D)@(L+U)
    C = np.linalg.inv(D)@bm
    
@@ -136,5 +138,4 @@ X_i = [1,2,-30]
 print(SOR(A,b,X_i,0.0005,100,1.1))
 print(Gauss_Seidel(A,b,X_i,0.0005,100, True))  """
     
-    
-    
+
