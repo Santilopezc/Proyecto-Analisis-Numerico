@@ -165,12 +165,16 @@ def gauss_seidel_app(cols, error, tol):
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es: " + str(radio))
         st.dataframe(table)
-    else:
-        aprox, table, radio = Sistemas_ecuaciones_numerico.Gauss_Seidel(A,b,X_0, tol, n,True)
+    elif error == "Norma infinito de división vectorial":
+        aprox, table, radio = Sistemas_ecuaciones_numerico.Gauss_Seidel(A,b,X_0, tol, n,1)
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es: " + str(radio))
         st.dataframe(table)
-
+    else:
+        aprox, table, radio = Sistemas_ecuaciones_numerico.Gauss_Seidel(A,b,X_0, tol, n,2)
+        st.write(aprox)
+        st.write("El radio espectral de la matriz de transformación es: " + str(radio))
+        st.dataframe(table)  
 def SOR_app(cols, error, tol):
     col1, col2 = cols
     with col1:
@@ -186,10 +190,14 @@ def SOR_app(cols, error, tol):
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es: " + str(radio))
         st.dataframe(table)
-    else:
-        aprox, table, radio = Sistemas_ecuaciones_numerico.SOR(A,b,X_0, tol, n,w,True)
+    elif error == "Norma infinito de división vectorial":
+        aprox, table, radio = Sistemas_ecuaciones_numerico.SOR(A,b,X_0, tol, n,w,1)
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es: " + str(radio))
         st.dataframe(table)
-
+    else:
+        aprox, table, radio = Sistemas_ecuaciones_numerico.SOR(A,b,X_0, tol, n,w,2)
+        st.write(aprox)
+        st.write("El radio espectral de la matriz de transformación es: " + str(radio))
+        st.dataframe(table)  
     
