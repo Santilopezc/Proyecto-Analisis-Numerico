@@ -157,7 +157,7 @@ def gauss_seidel_app(cols, error, tol):
         A = st.text_input('Ingrese la matriz de coeficientes (numeros con espacio, Filas separados por ;)', value="3 0 2; 2 6 2; 7 0 9")
         n = st.number_input('# Iteraciones', value=100)
     if error != "Decimales Correctos":
-    error = st.selectbox("Calculo del Error Relativo",("Norma infinito de división vectorial","División de normas infinito"))
+        error = st.selectbox("Calculo del Error Relativo",("Norma infinito de división vectorial","División de normas infinito"))
     with col2:
         X_0 = st.text_input('Ingrese los valores iniciales (separar numeros por espacio)', value = "1 2 3")
         b = st.text_input('Ingrese el vector de resultados (separar numeros por espacio)', value = "10 10 10")
