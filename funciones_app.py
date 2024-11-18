@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 import math
+import sympy as sp
+from utils import display_result, get_derivative, get_second_derivative
 
 import metodos_no_lineales
 import Sistemas_ecuaciones_numerico
@@ -30,13 +32,15 @@ def mostrar_ayuda():
 def validar_funcion(function_text):
     """Validar que la función sea válida y retornar una función evaluable."""
     try:
-        function = eval(f'lambda x: {function_text}')
+        x = sp.symbols('x')
+        function = sp.lambdify(x, function_text)
+        #function = eval(f'lambda x: {function_text}')
         test_value = function(0)  # Probar con un valor
         return function
     except SyntaxError:
         st.error("Error: La función ingresada tiene errores de sintaxis. Revísala.")
     except NameError as e:
-        st.error(f"Error: Nombre desconocido en la función. Verifica que usas np. para funciones especiales.")
+        st.error(f"Error: Nombre desconocido en la función. Verifica que hayas escrito bien la funcion.")
     except Exception as e:
         st.error(f"Error en la función: {e}.")
     return None
@@ -73,120 +77,124 @@ def validar_matriz(A_text, b_text):
 
 def biseccion_app(cols, error,tol):
     col1, col2, col3 = cols
-    function = st.text_input('Ingrese la función a evaluar', value='np.exp(-x) + x**2 -13')
-    function = eval(f'lambda x: {function}')
-    with col1:
-        a = st.number_input('Valor de a', step=1.,format="%.4f", value = 0.0)
-    with col2:
-        b = st.number_input('Valor de b', step=1.,format="%.4f", value = 5.0)
-    with col3:
-        n = st.number_input('# Iteraciones', value=100)
-    if error == "Decimales Correctos":
-        aprox, table = metodos_no_lineales.bisection(function, a, b, tol, n)
-        st.write(aprox)
-        st.dataframe(table)
-    else:
-        aprox, table = metodos_no_lineales.bisection(function, a, b, tol, n,True)
-        st.write(aprox)
-        st.dataframe(table)
+    function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    function = validar_funcion(function)
+    if function:
+        #function = eval(f'lambda x: {function}')
+        with col1:
+            a = st.number_input('Valor de a', step=1.,format="%.4f", value = 0.0)
+        with col2:
+            b = st.number_input('Valor de b', step=1.,format="%.4f", value = 5.0)
+        with col3:
+            n = st.number_input('# Iteraciones', value=100)
+        if error == "Decimales Correctos":
+            aprox, table = metodos_no_lineales.bisection(function, a, b, tol, n)
+            display_result(aprox, table)
+        else:
+            aprox, table = metodos_no_lineales.bisection(function, a, b, tol, n,True)
+            display_result(aprox, table)
 
 def regla_falsa_app(cols, error,tol):
     col1, col2, col3 = cols
-    function = st.text_input('Ingrese la función a evaluar', value='np.exp(-x) + x**2 -13')
-    function = eval(f'lambda x: {function}')
-    with col1:
-        a = st.number_input('Valor de a', step=1.,format="%.4f", value = 0.0)
-    with col2:
-        b = st.number_input('Valor de b', step=1.,format="%.4f", value = 5.0)
-    with col3:
-        n = st.number_input('# Iteraciones', value=100)
-    if error == "Decimales Correctos":
-        aprox, table = metodos_no_lineales.regla_falsa(function, a, b, tol, n)
-        st.write(aprox)
-        st.dataframe(table)
-    else:
-        aprox, table = metodos_no_lineales.regla_falsa(function, a, b, tol, n,True)
-        st.write(aprox)
-        st.dataframe(table)
+    function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    function = validar_funcion(function)
+    if function:
+        with col1:
+            a = st.number_input('Valor de a', step=1.,format="%.4f", value = 0.0)
+        with col2:
+            b = st.number_input('Valor de b', step=1.,format="%.4f", value = 5.0)
+        with col3:
+            n = st.number_input('# Iteraciones', value=100)
+        if error == "Decimales Correctos":
+            aprox, table = metodos_no_lineales.regla_falsa(function, a, b, tol, n)
+            display_result(aprox, table)
+        else:
+            aprox, table = metodos_no_lineales.regla_falsa(function, a, b, tol, n,True)
+            display_result(aprox, table)
 
 def secante_app(cols,error, tol):
     col1, col2, col3 = cols
-    function = st.text_input('Ingrese la función a evaluar', value='np.exp(-x) + x**2 -13')
-    function = eval(f'lambda x: {function}')
-    with col1:
-        x0 = st.number_input('Valor de x0',step=1.,format="%.4f", value = 0.0)
-    with col2:
-        x1 = st.number_input('Valor de x1', step=1.,format="%.4f", value = 5.0)
-    with col3:
-        n = st.number_input('# Iteraciones', value=100)
-    if x0 == x1:
-        st.warning("x0 y x1 no pueden ser iguales")
-        return
-    if error == "Decimales Correctos":
-        aprox, table = metodos_no_lineales.secante(function, x0, x1, tol, n)
-        st.write(aprox)
-        st.dataframe(table)
-    else:
-        aprox, table = metodos_no_lineales.secante(function, x0, x1, tol, n,True)
-        st.write(aprox)
-        st.dataframe(table)
+    function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    function = validar_funcion(function)
+    if function:
+        with col1:
+            x0 = st.number_input('Valor de x0',step=1.,format="%.4f", value = 0.0)
+        with col2:
+            x1 = st.number_input('Valor de x1', step=1.,format="%.4f", value = 5.0)
+        with col3:
+            n = st.number_input('# Iteraciones', value=100)
+        if x0 == x1:
+            st.warning("x0 y x1 no pueden ser iguales")
+            return
+        if error == "Decimales Correctos":
+            aprox, table = metodos_no_lineales.secante(function, x0, x1, tol, n)
+            display_result(aprox, table)
+        else:
+            aprox, table = metodos_no_lineales.secante(function, x0, x1, tol, n,True)
+            display_result(aprox, table)
 
 def newton_app(cols, error, tol):
+    # Revisar
     col1, col2 = cols
-    function = st.text_input('Ingrese la función a evaluar', value='math.exp(-x) + x**2 -13')
-    function = eval(f'lambda x: {function}')
-    with col1:
-        x0 = st.number_input('Valor de x0',step=1.,format="%.4f", value=0.0)
-    with col2:
-        n = st.number_input('# Iteraciones', value=100)
+    function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    derivada = get_derivative(function)
+    function = validar_funcion(function)
+    if function:
+        with col1:
+            x0 = st.number_input('Valor de x0',step=1.,format="%.4f", value=0.0)
+        with col2:
+            n = st.number_input('# Iteraciones', value=100)
 
-    if error == "Decimales Correctos":
-        aprox, table = metodos_no_lineales.newton(function, x0, tol, n)
-        st.write(aprox)
-        st.dataframe(table)
-    else:
-        aprox, table = metodos_no_lineales.newton(function, x0, tol, n,True)
-        st.write(aprox)
-        st.dataframe(table)
+        
+        if error == "Decimales Correctos":
+            aprox, table = metodos_no_lineales.newton(function, derivada, x0, tol, n)
+            display_result(aprox, table)
+        else:
+            aprox, table = metodos_no_lineales.newton(function,derivada, x0, tol, n,True)
+            display_result(aprox, table)
 
 def punto_fijo_app(cols, error, tol):
     col1, col2, col3 = cols
-    function = st.text_input('Ingrese la función a evaluar', value='np.exp(-x) + x**2 -13')
-    function = eval(f'lambda x: {function}')
-    with col1:
-        x0 = st.number_input('Valor de x0',step=1.,format="%.4f", value = 0.0)
-    with col2:
-        g = st.text_input('Ingrese g(x)', value='np.exp(-x) + x**2 -13')
-    g = eval(f'lambda x: {g}')
-    with col3:
-        n = st.number_input('# Iteraciones', value=100)
+    function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    function = validar_funcion(function)
+    if function:
+        with col1:
+            x0 = st.number_input('Valor de x0',step=1.,format="%.4f", value = 0.0)
+        with col2:
+            g = st.text_input('Ingrese g(x)', value='exp(-x)')
+        g = validar_funcion(g)
+        if g:
+            with col3:
+                n = st.number_input('# Iteraciones', value=100)
 
-    if error == "Decimales Correctos":
-        aprox, table = metodos_no_lineales.punto_fijo(function, g,x0, tol, n)
-        st.write(aprox)
-        st.dataframe(table)
-    else:
-        aprox, table = metodos_no_lineales.punto_fijo(function, g,x0, tol, n,True)
-        st.write(aprox)
-        st.dataframe(table)
+            if error == "Decimales Correctos":
+                aprox, table = metodos_no_lineales.punto_fijo(function, g,x0, tol, n)
+                display_result(aprox, table)
+            else:
+                aprox, table = metodos_no_lineales.punto_fijo(function, g,x0, tol, n,True)
+                display_result(aprox, table)
 
+
+def raices_multiples_app(cols, error, tol):
+    pass
 def raices_multiples2_app(cols, error, tol):
     col1, col2 = cols
-    function = st.text_input('Ingrese la función a evaluar', value='math.exp(-x) + x**2 -13')
-    function = eval(f'lambda x: {function}')
-    with col1:
-        x0 = st.number_input('Valor de x0',step=1.,format="%.4f", value=0.0)
-    with col2:
-        n = st.number_input('# Iteraciones', value=100)
+    function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    derivada = get_derivative(function)
+    segunda_derivada = get_second_derivative(function)
+    function = validar_funcion(function)
+    if function:
+        with col1:
+            x0 = st.number_input('Valor de x0',step=1.,format="%.4f", value=0.0)
+        with col2:
+            n = st.number_input('# Iteraciones', value=100)
 
-    if error == "Decimales Correctos":
-        aprox, table = metodos_no_lineales.raices_multiples2(function, x0, tol, n)
-        st.write(aprox)
-        st.dataframe(table)
-    else:
-        aprox, table = metodos_no_lineales.raices_multiples2(function, x0, tol, n,True)
-        st.write(aprox)
-        st.dataframe(table)
+        if error == "Decimales Correctos":
+            aprox, table = metodos_no_lineales.raices_multiples2(function, derivada, segunda_derivada, x0, tol, n)
+            display_result(aprox, table)
+        else:
+            aprox, table = metodos_no_lineales.raices_multiples2(function, derivada, segunda_derivada, x0, tol, n,True)
+            display_result(aprox, table)
 
 def jacobi_app(cols, error, tol):
     col1, col2 = cols
