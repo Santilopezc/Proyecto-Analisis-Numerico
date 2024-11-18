@@ -3,8 +3,7 @@ import pandas as pd
 import streamlit as st
 from scipy.misc import derivative
 import math
-
-
+from utils import calculate_error, make_table
 
 def bisection(function, a, b, tol, n, use_sig_digits = False):
     # Add verification that f is continous in [a,b]
@@ -38,6 +37,7 @@ def bisection(function, a, b, tol, n, use_sig_digits = False):
             # Stop when error is less than tolerance
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
+    return None, make_table(x_m_list, f_list, errors)
 
 def regla_falsa(function, a, b, tol, n, use_sig_digits = False):
     if function(a) * function(b) >= 0:
@@ -62,6 +62,7 @@ def regla_falsa(function, a, b, tol, n, use_sig_digits = False):
             errors.append(error)
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
+    return None, make_table(x_m_list, f_list, errors)
 
 def secante(function, x0, x1, tol, n, use_sig_digits = False):
     errors = [100]
@@ -83,15 +84,15 @@ def secante(function, x0, x1, tol, n, use_sig_digits = False):
             errors.append(error)
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
+    return None, make_table(x_m_list, f_list, errors)
             
-def newton(function,x0, tol, n, use_sig_digits = False):
+def newton(function, df, x0, tol, n, use_sig_digits = False):
     errors = [100]
     x_m_list = []
     f_list = []
     x_m = x0
     for i in range(n):
-        df = derivative(function, x_m)
-        x_m = x_m - function(x_m)/df
+        x_m = x_m - function(x_m)/df(x_m)
         x_m_list.append(x_m)
         f_x_m = function(x_m)
         f_list.append(f_x_m)
@@ -102,6 +103,7 @@ def newton(function,x0, tol, n, use_sig_digits = False):
             errors.append(error)
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
+    return None, make_table(x_m_list, f_list, errors)
 
 def punto_fijo(function, g, x0, tol, n, use_sig_digits = False):
     errors = [100]
@@ -120,19 +122,18 @@ def punto_fijo(function, g, x0, tol, n, use_sig_digits = False):
             errors.append(error)
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
+    return None, make_table(x_m_list, f_list, errors)
 
 def raices_multiples1():
-    # 
     pass
-def raices_multiples2(function, x0, tol, n, use_sig_digits = False):
+
+def raices_multiples2(function, df,d2f, x0, tol, n, use_sig_digits = False):
     errors = [100]
     x_m_list = []
     f_list = []
     x_m = x0
     for i in range(n):
-        df = derivative(function, x_m)
-        d2f = derivative(df, x_m)
-        x_m = x_m - (function(x_m) * df) / (df**2 - function(x_m) * d2f)
+        x_m = x_m - (function(x_m) * df(x_m)) / (df(x_m)**2 - function(x_m) * d2f(x_m))
         x_m_list.append(x_m)
         f_x_m = function(x_m)
         f_list.append(f_x_m)
@@ -143,22 +144,5 @@ def raices_multiples2(function, x0, tol, n, use_sig_digits = False):
             errors.append(error)
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
-
-def calculate_error(use_sig_digits: bool, x_m: float, x_list: list, index: int):
-    if use_sig_digits:
-        error = abs((x_m - x_list[index-1]) / x_m)
-    else:
-        error = abs(x_m - x_list[index-1])
-    return error
-
-def make_table(x_m_list, f_list, errors):
-    table = pd.DataFrame({
-        'X_m': x_m_list,
-        'f(X_m)': f_list,
-        'Error': errors
-    })
-    return table
-
-def trial_function(x):
-    return np.exp(-x) + x**2 -13
+    return None, make_table(x_m_list, f_list, errors)
 
