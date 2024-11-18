@@ -124,10 +124,7 @@ def punto_fijo(function, g, x0, tol, n, use_sig_digits = False):
                 return x_m, make_table(x_m_list, f_list, errors)
     return None, make_table(x_m_list, f_list, errors)
 
-def raices_multiples1():
-    pass
-
-def raices_multiples2(function, df,d2f, x0, tol, n, use_sig_digits = False):
+def raices_multiples(function, df,d2f, x0, tol, n, use_sig_digits = False):
     errors = [100]
     x_m_list = []
     f_list = []

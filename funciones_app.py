@@ -174,10 +174,7 @@ def punto_fijo_app(cols, error, tol):
                 aprox, table = metodos_no_lineales.punto_fijo(function, g,x0, tol, n,True)
                 display_result(aprox, table)
 
-
 def raices_multiples_app(cols, error, tol):
-    pass
-def raices_multiples2_app(cols, error, tol):
     col1, col2 = cols
     function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
     derivada = get_derivative(function)
@@ -190,10 +187,10 @@ def raices_multiples2_app(cols, error, tol):
             n = st.number_input('# Iteraciones', value=100)
 
         if error == "Decimales Correctos":
-            aprox, table = metodos_no_lineales.raices_multiples2(function, derivada, segunda_derivada, x0, tol, n)
+            aprox, table = metodos_no_lineales.raices_multiples(function, derivada, segunda_derivada, x0, tol, n)
             display_result(aprox, table)
         else:
-            aprox, table = metodos_no_lineales.raices_multiples2(function, derivada, segunda_derivada, x0, tol, n,True)
+            aprox, table = metodos_no_lineales.raices_multiples(function, derivada, segunda_derivada, x0, tol, n,True)
             display_result(aprox, table)
 
 def jacobi_app(cols, error, tol):

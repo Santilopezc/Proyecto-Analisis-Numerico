@@ -32,7 +32,7 @@ methods = {
     "Secante": funciones_app.secante_app,
     "Newton": funciones_app.newton_app,
     "Punto Fijo": funciones_app.punto_fijo_app,
-    "Raices Multiples 2":funciones_app.raices_multiples2_app,
+    "Raices Multiples":funciones_app.raices_multiples_app,
     "Jacobi":funciones_app.jacobi_app,
     "Gauss_Seidel":funciones_app.gauss_seidel_app,
     "SOR":funciones_app.SOR_app
