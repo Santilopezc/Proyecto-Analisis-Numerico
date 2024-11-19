@@ -11,7 +11,7 @@ col1, col2= st.columns([1,1])
 with col1:
     error = st.selectbox(
     "Quieres utilizar Cifras Significativas o Decimales Correctos?",
-    ("Decimales Correctos", "Cifras Significatias"),
+    ("Decimales Correctos", "Cifras Significativas"),
 )
 
 with col2:
@@ -39,7 +39,7 @@ methods = {
 }
 if method in ["Biseccion", "Regla Falsa", "Secante", "Punto Fijo"]:
     cols = st.columns([1,1,1])
-if method in ["Newton",  "Raices Multiples 2"]:
+if method in ["Newton",  "Raices Multiples"]:
     cols = st.columns([1,1])
 if method in ["Jacobi", "Gauss_Seidel", "SOR"]:
     cols = st.columns([1,1])
