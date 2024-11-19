@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import math
 import sympy as sp
-from utils import display_result, get_derivative, get_second_derivative, graph, graph2, validar_numeros
+from utils import display_result, get_derivative, get_second_derivative, graph, graph2, validar_numeros, graph_with_points
 
 import metodos_no_lineales
 import Sistemas_ecuaciones_numerico
@@ -413,6 +413,8 @@ def spline_lineal_app(cols):
         st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + (polinomio_eval))
     else:
         st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + str(polinomio_eval))
+    x_vals, y_vals = zip(*sorted(zip(x_str, y_str)))
+    graph_with_points(x_vals, y_vals, polinomio_sim)
 
 
 
