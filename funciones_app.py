@@ -342,3 +342,88 @@ def SOR_app(cols, error, tol):
         name1 = f"y = ({-Am[0,0]}*x+{bm[0]})/{Am[0,1]}"
         name2 = f"y = ({-Am[1,0]}*x+{bm[1]})/{Am[1,1]}"
         graph2(aprox,func1,func2, name1,name2 )
+
+def vandermonde_app(cols):
+    col1, col2, col3 = cols
+    with col1:
+        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+    with col2:
+        y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
+    with col3:
+        x_eval = st.text_input('Ingrese el valor de x a evaluar en el polinomio ', value = "3")
+
+    polinomio_sim, polinomio_eval = polinomio_Vandermonde(x_str, y_str, x_eval)
+    
+    st.write("El polinomio interpolante es: " + str(polinomio_sim))
+    st.write("El polinomio interpolante evaluado en "+str(x_eval)+"es: " + str(polinomio_sim))
+    graph(sp.symbols('x'), polinomio_sim)
+
+def polinomio_newton_app(cols):
+    col1, col2 = cols
+    with col1:
+        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+    with col2:
+        y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
+
+    polinomio_sim, table = construir_polinomio_newton(x_str, y_str)
+
+    st.write("El polinomio interpolante es: " + str(polinomio_sim))
+    st.dataframe(table)
+    graph(sp.symbols('x'), polinomio_sim)
+
+
+def polinomio_lagrange_app(cols):
+    col1, col2 = cols
+    with col1:
+        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+    with col2:
+        y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
+
+    polinomio_sim = polinomio_lagrange(x_str, y_str)
+
+    st.write("El polinomio interpolante es: " + str(polinomio_sim))
+    graph(sp.symbols('x'), polinomio_sim)
+
+def spline_cuadratico_app(cols):
+    col1, col2 = cols
+    with col1:
+        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+    with col2:
+        y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
+
+    polinomio_sim = spline_cubico(x_str, y_str)
+
+    st.write("Los polinomios interpolantes para cada intervalo son: " + str(polinomio_sim))
+    for i in polinomio_sim:
+        graph(sp.symbols('x'), i)
+
+def spline_lineal_app(cols):
+    col1, col2, col3 = cols
+    with col1:
+        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+    with col2:
+        y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
+    with col3:
+        x_eval = st.text_input('Ingrese el valor de x a evaluar en el polinomio ', value = "3")
+
+    polinomio_sim, polinomio_eval = spline_lineal(x_str, y_str, x_eval)
+    
+    st.write("Los polinomios interpolantes para cada intervalo son: " + str(polinomio_sim))
+    st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + str(polinomio_eval))
+    for i in polinomio_sim:
+        graph(sp.symbols('x'), i)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
