@@ -1,7 +1,23 @@
 import numpy as np
 from sympy import symbols, expand, simplify
+from scipy.interpolate import CubicSpline
 
 x = symbols('x')
+
+def polinomio_Vandermonde(x_str, y_str, x_eval): # Retorna polinomio y evaluación del mismo en x_val
+    # Definir los puntos de datos conocidos
+    x_points = np.array(list(map(float, x_str.split())) )
+    y_points = np.array(list(map(float, y_str.split())) )
+    x_eval = float(x_eval)
+    # Construir la matriz de Vandermonde
+    A = np.vander(x_points, increasing=False)
+
+    # Resolver el sistema de ecuaciones para encontrar los coeficientes
+    coeffs = np.linalg.solve(A, y_points)
+
+    n = len(coeffs)
+
+    return sum(coeffs[i] * x**(n-1-i) for i in range(n)), sum(coeffs[i] * x_eval**(n-1-i) for i in range(n))
 
 def construir_polinomio_newton(x_str, y_str, x_str): #Entrega el polinomio y la tabla de diferencias divididas
     
@@ -53,7 +69,35 @@ def polinomio_lagrange(x_str, y_str): #Entrega el polinomio
 
 
 
+def spline_cubico(x_str, y_str): # Entrega el polinomio correspondiente a cada intervalo y las parejas deben estar en orden acendente
 
+    x_vals = np.array(list(map(float, x_str.split())) )
+    y_vals = np.array(list(map(float, y_str.split())) )
+
+    # Calcular el spline cúbico
+    cs = CubicSpline(x_vals, y_vals, bc_type='natural')
+
+    # Crear una lista para almacenar los polinomios de cada intervalo
+    polinomios_expandidos = []
+
+    # Iterar sobre cada intervalo
+    for i in range(len(x_vals) - 1):
+        # Obtener los coeficientes del spline para el intervalo i
+        coeffs = cs.c[:, i]  # Coeficientes para el intervalo i
+
+        # Punto inicial del intervalo
+        x_val = x_vals[i]
+
+        # Construir el polinomio cúbico para el intervalo actual
+        polynomial = 0
+        for j in range(len(coeffs)):
+            polynomial += coeffs[j] * (x - x_val)**(len(coeffs) - j - 1)
+
+        # Expandir el polinomio
+        expanded_polynomial = expand(polynomial)
+        polinomios_expandidos.append(expanded_polynomial)
+
+    return polinomios_expandidos
 
 def spline_lineal(x_str, y_str, x_i_str):
 
