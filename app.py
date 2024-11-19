@@ -24,7 +24,7 @@ else:
 
 method = st.selectbox(
 "Que metodo quieres utilizar?",
-("Biseccion", "Regla Falsa", "Secante", "Newton", "Punto Fijo", "Raices Multiples 2", "Jacobi", "Gauss_Seidel", "SOR"),)
+("Biseccion", "Regla Falsa", "Secante", "Newton", "Punto Fijo", "Raices Multiples", "Jacobi", "Gauss_Seidel", "SOR"),)
 
 methods = {
     "Biseccion": funciones_app.biseccion_app,
