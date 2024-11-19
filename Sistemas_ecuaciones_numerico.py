@@ -46,7 +46,7 @@ def Jacobi(A,b,X_i,tol,niter, error_rel = False):
    C = np.linalg.inv(D)@bm
    
  
-   #print(T@X)
+   print(rad_esp(T))
    E = (Am @ X) - bm
    
    if np.allclose(E, np.zeros(n), atol = tol) :
@@ -73,8 +73,8 @@ def Gauss_Seidel(A,b,X_i,tol,niter, error_rel = False):
    X_val.append(X_num)
    
    Am = np.array([list(map(float, row.split())) for row in A.split(';')])
-   bm = np.array(list(map(float, b.split())) )
-   X = np.array(list(map(float, X_i.split())) )
+   bm = np.array(list(map(int, b.split())) )
+   X = np.array(list(map(int, X_i.split())) )
    D = np.diag(np.diagonal(Am))
    L = -1*np.tril(Am,-1)
    U = -1*np.triu(Am,1)
@@ -108,9 +108,9 @@ def SOR(A,b,X_i,tol,niter,w, error_rel = False):
        X_num.append("X_"+ str(i+1))
    X_val.append(X_num)
    
-   Am = np.array([list(map(float, row.split())) for row in A.split(';')])
-   bm = np.array(list(map(float, b.split())) )
-   X = np.array(list(map(float, X_i.split())) )
+   Am = np.array([list(map(int, row.split())) for row in A.split(';')])
+   bm = np.array(list(map(int, b.split())) )
+   X = np.array(list(map(int, X_i.split())) )
    D = np.diag(np.diagonal(Am))
    L = -1*np.tril(Am,-1)
    U = -1*np.triu(Am,1)
@@ -137,5 +137,4 @@ b = [10,10,10]
 X_i = [1,2,-30]
 print(SOR(A,b,X_i,0.0005,100,1.1))
 print(Gauss_Seidel(A,b,X_i,0.0005,100, True))  """
-    
 
