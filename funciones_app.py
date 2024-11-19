@@ -356,7 +356,7 @@ def vandermonde_app(cols):
     polinomio_sim, polinomio_eval = Funciones_Interpolacion.polinomio_Vandermonde(x_str, y_str, x_eval)
     
     st.write("El polinomio interpolante es: " + str(polinomio_sim))
-    st.write("El polinomio interpolante evaluado en "+str(x_eval)+"es: " + str(polinomio_sim))
+    st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + str(polinomio_sim))
     graph(sp.symbols('x'), polinomio_sim)
 
 def polinomio_newton_app(cols):
