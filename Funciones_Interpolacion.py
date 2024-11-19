@@ -19,7 +19,7 @@ def polinomio_Vandermonde(x_str, y_str, x_eval): # Retorna polinomio y evaluaciÃ
 
     return sum(coeffs[i] * x**(n-1-i) for i in range(n)), sum(coeffs[i] * x_eval**(n-1-i) for i in range(n))
 
-def construir_polinomio_newton(x_str, y_str, x_str): #Entrega el polinomio y la tabla de diferencias divididas
+def construir_polinomio_newton(x_str, y_str): #Entrega el polinomio y la tabla de diferencias divididas
     
     x_vals = np.array(list(map(float, x_str.split())) )
     y_vals = np.array(list(map(float, y_str.split())) )
