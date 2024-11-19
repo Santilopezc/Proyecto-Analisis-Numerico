@@ -41,7 +41,7 @@ methods = {
     "Polinomio_Newton":funciones_app.polinomio_newton_app,
     "Polinomio_Lagrange":funciones_app.polinomio_lagrange_app,
     "Spline_Cuadratico":funciones_app.spline_cuadratico_app,
-    "Spline_Lineal":funcioes_app.spline_lineal_app
+    "Spline_Lineal":funciones_app.spline_lineal_app
 }
 if method in ["Biseccion", "Regla Falsa", "Secante", "Punto Fijo", "Vandermonde", "Spline_Lineal"]:
     cols = st.columns([1,1,1])
