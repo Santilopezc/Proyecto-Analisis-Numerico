@@ -127,3 +127,12 @@ def graph2(x, function_input1, function_input2, name1, name2):
             #skdsd
     except FileNotFoundError:
         st.error("SVG file not found. Please check if it was created correctly.")
+
+def validar_numeros(entrada):
+    try:
+        # Convertir la entrada en una lista de números
+        numeros = list(map(float, entrada.split()))
+        return entrada
+    except ValueError:
+        # Si hay un error, la entrada no es válida
+        return None
