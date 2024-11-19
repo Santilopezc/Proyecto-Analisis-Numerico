@@ -163,7 +163,7 @@ def spline_lineal(x_str, y_str, x_i_str):
         x_next, y_next = puntos[i + 1]
         
         m = (y_next - y_i) / (x_next - x_i)
-        polinomio = lambda x: y_i + m * (x - x_i) 
+        polinomio = y_i + m * (x - x_i) 
         polinomios.append(polinomio)
         # Verificar si x está en el intervalo actual
         if x_i <= x_float <= x_next:
