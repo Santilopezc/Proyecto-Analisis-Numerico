@@ -68,12 +68,11 @@ def graph(x, function_input):
         margin=dict(l=0, r=0, t=40, b=0),
         hovermode="closest"
     )
-    print("hello")
 
     st.plotly_chart(fig)
 
     svg_file = "function_graph.svg"
-    pio.write_image(fig, svg_file, format='svg')
+    pio.write_image(fig, svg_file, format='svg', engine='kaleido')
     # Check if the SVG file was created
     try:
         with open(svg_file, "rb") as file:
