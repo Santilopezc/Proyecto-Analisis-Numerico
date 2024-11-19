@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import math
 import sympy as sp
-from utils import display_result, get_derivative, get_second_derivative, graph
+from utils import display_result, get_derivative, get_second_derivative, graph, graph2
 
 import metodos_no_lineales
 import Sistemas_ecuaciones_numerico
@@ -231,7 +231,26 @@ def jacobi_app(cols, error, tol):
         aprox, table, radio = Sistemas_ecuaciones_numerico.Jacobi(A,b,X_0, tol, n,2)
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es: " + str(radio))
-        st.dataframe(table)  
+        st.dataframe(table)
+    if len(A.split(";")) == 2:
+        for i in range(len(A.split(";"))):
+            dim1 = len(A.split(";")[i].split())
+           
+                
+   
+        Am = np.array([list(map(float, row.split())) for row in A.split(';')])
+        bm = np.array(list(map(float, b.split())))
+        def func1(x): 
+            if Am[0,1] == 0: 
+                return(x*0 + bm[0]/Am[0,0])
+            return((-Am[0,0]*x+bm[0])/Am[0,1])
+        def func2(x): 
+            if Am[1,1] == 0: 
+                return(x*0+bm[1]/Am[1,0])
+            return((-Am[1,0]*x+bm[1])/Am[1,1])
+        name1 = f"y = ({-Am[0,0]}*x+{bm[0]})/{Am[0,1]}"
+        name2 = f"y = ({-Am[1,0]}*x+{bm[1]})/{Am[1,1]}"
+        graph2(aprox,func1,func2, name1,name2 )
 
 def gauss_seidel_app(cols, error, tol):
     col1, col2 = cols
@@ -259,6 +278,25 @@ def gauss_seidel_app(cols, error, tol):
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es: " + str(radio))
         st.dataframe(table)  
+    if len(A.split(";")) == 2:
+        for i in range(len(A.split(";"))):
+            dim1 = len(A.split(";")[i].split())
+           
+                
+   
+        Am = np.array([list(map(float, row.split())) for row in A.split(';')])
+        bm = np.array(list(map(float, b.split())))
+        def func1(x): 
+            if Am[0,1] == 0: 
+                return(x*0 + bm[0]/Am[0,0])
+            return((-Am[0,0]*x+bm[0])/Am[0,1])
+        def func2(x): 
+            if Am[1,1] == 0: 
+                return(x*0+bm[1]/Am[1,0])
+            return((-Am[1,0]*x+bm[1])/Am[1,1])
+        name1 = f"y = ({-Am[0,0]}*x+{bm[0]})/{Am[0,1]}"
+        name2 = f"y = ({-Am[1,0]}*x+{bm[1]})/{Am[1,1]}"
+        graph2(aprox,func1,func2, name1,name2 )
 def SOR_app(cols, error, tol):
     col1, col2 = cols
     with col1:
@@ -284,4 +322,23 @@ def SOR_app(cols, error, tol):
         aprox, table, radio = Sistemas_ecuaciones_numerico.SOR(A,b,X_0, tol, n,w,2)
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es: " + str(radio))
-        st.dataframe(table)  
+        st.dataframe(table)
+    if len(A.split(";")) == 2:
+        for i in range(len(A.split(";"))):
+            dim1 = len(A.split(";")[i].split())
+           
+                
+   
+        Am = np.array([list(map(float, row.split())) for row in A.split(';')])
+        bm = np.array(list(map(float, b.split())))
+        def func1(x): 
+            if Am[0,1] == 0: 
+                return(x*0 + bm[0]/Am[0,0])
+            return((-Am[0,0]*x+bm[0])/Am[0,1])
+        def func2(x): 
+            if Am[1,1] == 0: 
+                return(x*0+bm[1]/Am[1,0])
+            return((-Am[1,0]*x+bm[1])/Am[1,1])
+        name1 = f"y = ({-Am[0,0]}*x+{bm[0]})/{Am[0,1]}"
+        name2 = f"y = ({-Am[1,0]}*x+{bm[1]})/{Am[1,1]}"
+        graph2(aprox,func1,func2, name1,name2 )
