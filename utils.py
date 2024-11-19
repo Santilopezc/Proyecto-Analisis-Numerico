@@ -73,7 +73,7 @@ def graph(x, function_input):
     st.plotly_chart(fig)
 
     svg_file = "function_graph.svg"
-    pio.write_image(fig, svg_file, format='svg', engine='kaleido')
+    pio.write_image(fig, svg_file, format='svg')
     # Check if the SVG file was created
     try:
         with open(svg_file, "rb") as file:
