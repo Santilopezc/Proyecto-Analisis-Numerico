@@ -57,7 +57,7 @@ def graph(x, function_input):
     y_vals = function(x_vals)
 
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=x_vals, y=y_vals, mode='lines', name=function_input))
+    fig.add_trace(go.Scatter(x=x_vals, y=y_vals, mode='lines', name= str(function_input)))
 
     fig.update_layout(
         title=f"Graph of {function_input}",
@@ -81,5 +81,49 @@ def graph(x, function_input):
                 file_name="function_graph.svg",
                 mime="image/svg+xml"
             )
+    except FileNotFoundError:
+        st.error("SVG file not found. Please check if it was created correctly.")
+def graph2(x, function_input1, function_input2, name1, name2):
+
+    # Create a symbolic function
+    
+
+    col7, col8 = st.columns(2)
+    with col7:
+        x_min = st.number_input(f"Enter the minimum value for {x}", value=0, step=1)
+    with col8:
+        x_max = st.number_input(f"Enter the maximum value for {x}", value=10, step=1)
+
+    x_vals = np.linspace(x_min, x_max, 1000)
+    y_vals1 = function_input1(x_vals)
+    y_vals2 = function_input2(x_vals)
+    
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=x_vals, y=y_vals1, mode='lines', name=name1))
+    fig.add_trace(go.Scatter(x=x_vals, y=y_vals2, mode='lines', name=name2))
+
+    fig.update_layout(
+        title=f"Graph of System of Ecuations",
+        xaxis_title="x",
+        yaxis_title=f"y",
+        showlegend=True,
+        margin=dict(l=0, r=0, t=40, b=0),
+        hovermode="closest"
+    )
+
+    st.plotly_chart(fig)
+
+    svg_file = "function_graph.svg"
+    pio.write_image(fig, svg_file, format='svg', engine='kaleido')
+    # Check if the SVG file was created
+    try:
+        with open(svg_file, "rb") as file:
+            st.download_button(
+                label="Download SVG Image",
+                data=file,
+                file_name="function_graph.svg",
+                mime="image/svg+xml"
+            )
+            #skdsd
     except FileNotFoundError:
         st.error("SVG file not found. Please check if it was created correctly.")

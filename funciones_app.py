@@ -3,10 +3,11 @@ import pandas as pd
 import streamlit as st
 import math
 import sympy as sp
-from utils import display_result, get_derivative, get_second_derivative, graph
+from utils import display_result, get_derivative, get_second_derivative, graph, graph2
 
 import metodos_no_lineales
 import Sistemas_ecuaciones_numerico
+import Funciones_Interpolacion
 
 def mostrar_ayuda():
     st.sidebar.markdown("## Ayuda General")
@@ -231,7 +232,26 @@ def jacobi_app(cols, error, tol):
         aprox, table, radio = Sistemas_ecuaciones_numerico.Jacobi(A,b,X_0, tol, n,2)
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es: " + str(radio))
-        st.dataframe(table)  
+        st.dataframe(table)
+    if len(A.split(";")) == 2:
+        for i in range(len(A.split(";"))):
+            dim1 = len(A.split(";")[i].split())
+           
+                
+   
+        Am = np.array([list(map(float, row.split())) for row in A.split(';')])
+        bm = np.array(list(map(float, b.split())))
+        def func1(x): 
+            if Am[0,1] == 0: 
+                return(x*0 + bm[0]/Am[0,0])
+            return((-Am[0,0]*x+bm[0])/Am[0,1])
+        def func2(x): 
+            if Am[1,1] == 0: 
+                return(x*0+bm[1]/Am[1,0])
+            return((-Am[1,0]*x+bm[1])/Am[1,1])
+        name1 = f"y = ({-Am[0,0]}*x+{bm[0]})/{Am[0,1]}"
+        name2 = f"y = ({-Am[1,0]}*x+{bm[1]})/{Am[1,1]}"
+        graph2(aprox,func1,func2, name1,name2 )
 
 def gauss_seidel_app(cols, error, tol):
     col1, col2 = cols
@@ -259,6 +279,25 @@ def gauss_seidel_app(cols, error, tol):
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es: " + str(radio))
         st.dataframe(table)  
+    if len(A.split(";")) == 2:
+        for i in range(len(A.split(";"))):
+            dim1 = len(A.split(";")[i].split())
+           
+                
+   
+        Am = np.array([list(map(float, row.split())) for row in A.split(';')])
+        bm = np.array(list(map(float, b.split())))
+        def func1(x): 
+            if Am[0,1] == 0: 
+                return(x*0 + bm[0]/Am[0,0])
+            return((-Am[0,0]*x+bm[0])/Am[0,1])
+        def func2(x): 
+            if Am[1,1] == 0: 
+                return(x*0+bm[1]/Am[1,0])
+            return((-Am[1,0]*x+bm[1])/Am[1,1])
+        name1 = f"y = ({-Am[0,0]}*x+{bm[0]})/{Am[0,1]}"
+        name2 = f"y = ({-Am[1,0]}*x+{bm[1]})/{Am[1,1]}"
+        graph2(aprox,func1,func2, name1,name2 )
 def SOR_app(cols, error, tol):
     col1, col2 = cols
     with col1:
@@ -284,4 +323,106 @@ def SOR_app(cols, error, tol):
         aprox, table, radio = Sistemas_ecuaciones_numerico.SOR(A,b,X_0, tol, n,w,2)
         st.write(aprox)
         st.write("El radio espectral de la matriz de transformación es: " + str(radio))
-        st.dataframe(table)  
+        st.dataframe(table)
+    if len(A.split(";")) == 2:
+        for i in range(len(A.split(";"))):
+            dim1 = len(A.split(";")[i].split())
+           
+                
+   
+        Am = np.array([list(map(float, row.split())) for row in A.split(';')])
+        bm = np.array(list(map(float, b.split())))
+        def func1(x): 
+            if Am[0,1] == 0: 
+                return(x*0 + bm[0]/Am[0,0])
+            return((-Am[0,0]*x+bm[0])/Am[0,1])
+        def func2(x): 
+            if Am[1,1] == 0: 
+                return(x*0+bm[1]/Am[1,0])
+            return((-Am[1,0]*x+bm[1])/Am[1,1])
+        name1 = f"y = ({-Am[0,0]}*x+{bm[0]})/{Am[0,1]}"
+        name2 = f"y = ({-Am[1,0]}*x+{bm[1]})/{Am[1,1]}"
+        graph2(aprox,func1,func2, name1,name2 )
+
+def vandermonde_app(cols):
+    col1, col2, col3 = cols
+    with col1:
+        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+    with col2:
+        y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
+    with col3:
+        x_eval = st.text_input('Ingrese el valor de x a evaluar en el polinomio ', value = "3")
+
+    polinomio_sim, polinomio_eval = Funciones_Interpolacion.polinomio_Vandermonde(x_str, y_str, x_eval)
+    
+    st.write("El polinomio interpolante es: " + str(polinomio_sim))
+    st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + str(polinomio_sim))
+    graph(sp.symbols('x'), polinomio_sim)
+
+def polinomio_newton_app(cols):
+    col1, col2 = cols
+    with col1:
+        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+    with col2:
+        y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
+
+    polinomio_sim, table = Funciones_Interpolacion.construir_polinomio_newton(x_str, y_str)
+
+    st.write("El polinomio interpolante es: " + str(polinomio_sim))
+    st.dataframe(table)
+    graph(sp.symbols('x'), polinomio_sim)
+
+
+def polinomio_lagrange_app(cols):
+    col1, col2 = cols
+    with col1:
+        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+    with col2:
+        y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
+
+    polinomio_sim = Funciones_Interpolacion.polinomio_lagrange(x_str, y_str)
+
+    st.write("El polinomio interpolante es: " + str(polinomio_sim))
+    graph(sp.symbols('x'), polinomio_sim)
+
+def spline_cuadratico_app(cols):
+    col1, col2 = cols
+    with col1:
+        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+    with col2:
+        y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
+
+    polinomio_sim = Funciones_Interpolacion.spline_cuadratico(x_str, y_str)
+
+    st.write("Los polinomios interpolantes para cada intervalo son: " + str(polinomio_sim))
+
+
+def spline_lineal_app(cols):
+    col1, col2, col3 = cols
+    with col1:
+        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+    with col2:
+        y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
+    with col3:
+        x_eval = st.text_input('Ingrese el valor de x a evaluar en el polinomio ', value = "3")
+
+    polinomio_sim, polinomio_eval = Funciones_Interpolacion.spline_lineal(x_str, y_str, x_eval)
+    
+    st.write("Los polinomios interpolantes para cada intervalo son: " + str(polinomio_sim))
+    st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + str(polinomio_eval))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
