@@ -353,7 +353,7 @@ def vandermonde_app(cols):
     with col3:
         x_eval = st.text_input('Ingrese el valor de x a evaluar en el polinomio ', value = "3")
 
-    polinomio_sim, polinomio_eval = polinomio_Vandermonde(x_str, y_str, x_eval)
+    polinomio_sim, polinomio_eval = Funciones_Interpolacion.polinomio_Vandermonde(x_str, y_str, x_eval)
     
     st.write("El polinomio interpolante es: " + str(polinomio_sim))
     st.write("El polinomio interpolante evaluado en "+str(x_eval)+"es: " + str(polinomio_sim))
@@ -366,7 +366,7 @@ def polinomio_newton_app(cols):
     with col2:
         y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
 
-    polinomio_sim, table = construir_polinomio_newton(x_str, y_str)
+    polinomio_sim, table = Funciones_Interpolacion.construir_polinomio_newton(x_str, y_str)
 
     st.write("El polinomio interpolante es: " + str(polinomio_sim))
     st.dataframe(table)
@@ -380,7 +380,7 @@ def polinomio_lagrange_app(cols):
     with col2:
         y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
 
-    polinomio_sim = polinomio_lagrange(x_str, y_str)
+    polinomio_sim = Funciones_Interpolacion.polinomio_lagrange(x_str, y_str)
 
     st.write("El polinomio interpolante es: " + str(polinomio_sim))
     graph(sp.symbols('x'), polinomio_sim)
@@ -392,7 +392,7 @@ def spline_cuadratico_app(cols):
     with col2:
         y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
 
-    polinomio_sim = spline_cubico(x_str, y_str)
+    polinomio_sim = Funciones_Interpolacion.spline_cuadratico(x_str, y_str)
 
     st.write("Los polinomios interpolantes para cada intervalo son: " + str(polinomio_sim))
 
@@ -406,7 +406,7 @@ def spline_lineal_app(cols):
     with col3:
         x_eval = st.text_input('Ingrese el valor de x a evaluar en el polinomio ', value = "3")
 
-    polinomio_sim, polinomio_eval = spline_lineal(x_str, y_str, x_eval)
+    polinomio_sim, polinomio_eval = Funciones_Interpolacion.spline_lineal(x_str, y_str, x_eval)
     
     st.write("Los polinomios interpolantes para cada intervalo son: " + str(polinomio_sim))
     st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + str(polinomio_eval))
