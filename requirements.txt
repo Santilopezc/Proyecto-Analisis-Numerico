@@ -3,4 +3,4 @@ scipy
 sympy
 kaleido
 plotly
-chrome
+chromium
