@@ -8,7 +8,10 @@ def polinomio_Vandermonde(x_str, y_str, x_eval): # Retorna polinomio y evaluaciÃ
     # Definir los puntos de datos conocidos
     x_points = np.array(list(map(float, x_str.split())) )
     y_points = np.array(list(map(float, y_str.split())) )
-    x_vals, y_vals = zip(*sorted(list(zip(x_vals, y_vals))))
+    puntos = zip(x_vals, y_vals)
+    puntos = sorted(puntos)
+    x_vals, y_vals = zip(*puntos)
+    
     x_eval = float(x_eval)
     # Construir la matriz de Vandermonde
     A = np.vander(x_points, increasing=False)
