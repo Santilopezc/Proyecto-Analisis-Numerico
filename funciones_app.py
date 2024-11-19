@@ -401,9 +401,6 @@ def spline_lineal_app(cols):
     col1, col2, col3 = cols
     with col1:
         x_str = validar_numeros(st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7"))
-        x_vals = validar_numeros(x_str)
-        if x_vals is None:
-            st.error("Error en el campo de X: Por favor, ingrese solo números separados por espacios.")
     with col2:
         y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
     with col3:
