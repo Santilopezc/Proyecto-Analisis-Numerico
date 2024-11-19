@@ -37,7 +37,8 @@ def bisection(function, a, b, tol, n, use_sig_digits = False):
             # Stop when error is less than tolerance
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
-    return None, make_table(x_m_list, f_list, errors)
+    st.warning('El método no converge')
+    return x_m, make_table(x_m_list, f_list, errors)
 
 def regla_falsa(function, a, b, tol, n, use_sig_digits = False):
     if function(a) * function(b) >= 0:
@@ -62,7 +63,8 @@ def regla_falsa(function, a, b, tol, n, use_sig_digits = False):
             errors.append(error)
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
-    return None, make_table(x_m_list, f_list, errors)
+    st.warning('El método no converge')
+    return x_m, make_table(x_m_list, f_list, errors)
 
 def secante(function, x0, x1, tol, n, use_sig_digits = False):
     errors = [100]
@@ -84,7 +86,8 @@ def secante(function, x0, x1, tol, n, use_sig_digits = False):
             errors.append(error)
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
-    return None, make_table(x_m_list, f_list, errors)
+    st.warning('El método no converge')
+    return x_m, make_table(x_m_list, f_list, errors)
             
 def newton(function, df, x0, tol, n, use_sig_digits = False):
     errors = [100]
@@ -92,6 +95,9 @@ def newton(function, df, x0, tol, n, use_sig_digits = False):
     f_list = []
     x_m = x0
     for i in range(n):
+        if df(x_m) == 0:
+            st.warning(f'La derivada de la función en {x_m} es igual a 0')
+            return None, None
         x_m = x_m - function(x_m)/df(x_m)
         x_m_list.append(x_m)
         f_x_m = function(x_m)
@@ -103,7 +109,8 @@ def newton(function, df, x0, tol, n, use_sig_digits = False):
             errors.append(error)
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
-    return None, make_table(x_m_list, f_list, errors)
+    st.warning('El método no converge')
+    return x_m, make_table(x_m_list, f_list, errors)
 
 def punto_fijo(function, g, x0, tol, n, use_sig_digits = False):
     errors = [100]
@@ -122,7 +129,8 @@ def punto_fijo(function, g, x0, tol, n, use_sig_digits = False):
             errors.append(error)
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
-    return None, make_table(x_m_list, f_list, errors)
+    st.warning('El método no converge')
+    return x_m, make_table(x_m_list, f_list, errors)
 
 def raices_multiples(function, df,d2f, x0, tol, n, use_sig_digits = False):
     errors = [100]
@@ -130,6 +138,9 @@ def raices_multiples(function, df,d2f, x0, tol, n, use_sig_digits = False):
     f_list = []
     x_m = x0
     for i in range(n):
+        if df(x_m) == 0:
+            st.warning(f'La derivada de la función en {x_m} es igual a 0')
+            return None, None
         x_m = x_m - (function(x_m) * df(x_m)) / (df(x_m)**2 - function(x_m) * d2f(x_m))
         x_m_list.append(x_m)
         f_x_m = function(x_m)
@@ -141,5 +152,6 @@ def raices_multiples(function, df,d2f, x0, tol, n, use_sig_digits = False):
             errors.append(error)
             if error < tol:
                 return x_m, make_table(x_m_list, f_list, errors)
-    return None, make_table(x_m_list, f_list, errors)
+    st.warning('El método no converge')
+    return x_m, make_table(x_m_list, f_list, errors)
 
