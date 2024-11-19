@@ -8,6 +8,7 @@ def polinomio_Vandermonde(x_str, y_str, x_eval): # Retorna polinomio y evaluaci�
     # Definir los puntos de datos conocidos
     x_points = np.array(list(map(float, x_str.split())) )
     y_points = np.array(list(map(float, y_str.split())) )
+    x_vals, y_vals = zip(*sorted(zip(x_vals, y_vals)))
     x_eval = float(x_eval)
     # Construir la matriz de Vandermonde
     A = np.vander(x_points, increasing=False)
@@ -23,6 +24,7 @@ def construir_polinomio_newton(x_str, y_str): #Entrega el polinomio y la tabla d
     
     x_vals = np.array(list(map(float, x_str.split())) )
     y_vals = np.array(list(map(float, y_str.split())) )
+    x_vals, y_vals = zip(*sorted(zip(x_vals, y_vals)))
     n = len(x_vals)
     tabla = np.zeros((n, n+1))
     tabla[:, 0] = x_vals
@@ -49,6 +51,7 @@ def construir_polinomio_newton(x_str, y_str): #Entrega el polinomio y la tabla d
 def polinomio_lagrange(x_str, y_str): #Entrega el polinomio
     x_vals = np.array(list(map(float, x_str.split())) )
     y_vals = np.array(list(map(float, y_str.split())) )
+    x_vals, y_vals = zip(*sorted(zip(x_vals, y_vals)))
 
     n = len(x_vals)
     polinomio = 0
@@ -73,7 +76,7 @@ def spline_cubico(x_str, y_str): # Entrega el polinomio correspondiente a cada i
 
     x_vals = np.array(list(map(float, x_str.split())) )
     y_vals = np.array(list(map(float, y_str.split())) )
-
+    x_vals, y_vals = zip(*sorted(zip(x_vals, y_vals)))
     # Calcular el spline cúbico
     cs = CubicSpline(x_vals, y_vals, bc_type='natural')
 
@@ -103,7 +106,7 @@ def spline_cuadratico(x_str, y_str): # Retorna lista de polinomios
 
     x_vals = np.array(list(map(float, x_str.split())) )
     y_vals = np.array(list(map(float, y_str.split())) )
-
+    x_vals, y_vals = zip(*sorted(zip(x_vals, y_vals)))
     # Crear listas para almacenar los coeficientes y los polinomios de cada intervalo
     polinomios_expandidos = []
     n = len(x_vals) - 1  # Número de intervalos
@@ -151,6 +154,7 @@ def spline_lineal(x_str, y_str, x_i_str):
     x_vals = np.array(list(map(float, x_str.split())) )
     y_vals = np.array(list(map(float, y_str.split())) )
     puntos = list(zip(x_vals, y_vals))
+    x_vals, y_vals = zip(*sorted(puntos))
     x_float = float(x_i_str)
 
     # Ordenar puntos por su valor x para asegurarse de que están en orden
