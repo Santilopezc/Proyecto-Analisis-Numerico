@@ -24,7 +24,8 @@ else:
 
 method = st.selectbox(
 "Que metodo quieres utilizar?",
-("Biseccion", "Regla Falsa", "Secante", "Newton", "Punto Fijo", "Raices Multiples", "Jacobi", "Gauss_Seidel", "SOR"),)
+("Biseccion", "Regla Falsa", "Secante", "Newton", "Punto Fijo", "Raices Multiples", "Jacobi", "Gauss_Seidel", "SOR", "Vandermonde", "Polinomio_Newton", 
+ "Polinomio_Lagrange", "Spline_Cuadratico", "Spline_Lineal"),)
 
 methods = {
     "Biseccion": funciones_app.biseccion_app,
@@ -35,11 +36,16 @@ methods = {
     "Raices Multiples":funciones_app.raices_multiples_app,
     "Jacobi":funciones_app.jacobi_app,
     "Gauss_Seidel":funciones_app.gauss_seidel_app,
-    "SOR":funciones_app.SOR_app
+    "SOR":funciones_app.SOR_app,
+    "Vandermonde":funciones_app.vandermonde_app,
+    "Polinomio_Newton":funciones_app.polinomio_newton_app,
+    "Polinomio_Lagrange":funciones_app.polinomio_lagrange_app,
+    "Spline_Cuadratico":funciones_app.spline_cuadratico_app,
+    "Spline_Lineal":funcioes_app.spline_lineal_app
 }
-if method in ["Biseccion", "Regla Falsa", "Secante", "Punto Fijo"]:
+if method in ["Biseccion", "Regla Falsa", "Secante", "Punto Fijo", "Vandermonde", "Spline_Lineal"]:
     cols = st.columns([1,1,1])
-if method in ["Newton",  "Raices Multiples"]:
+if method in ["Newton",  "Raices Multiples", "Polinomio_Newton", "Polinomio_Lagrange", "Spline_Cuadratico"]:
     cols = st.columns([1,1])
 if method in ["Jacobi", "Gauss_Seidel", "SOR"]:
     cols = st.columns([1,1])
