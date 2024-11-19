@@ -58,7 +58,7 @@ def graph(x, function_input):
     y_vals = function(x_vals)
 
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=x_vals, y=y_vals, mode='lines', name=function_input))
+    fig.add_trace(go.Scatter(x=x_vals, y=y_vals, mode='lines', name= str(function_input)))
 
     fig.update_layout(
         title=f"Graph of {function_input}",
