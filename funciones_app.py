@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import math
 import sympy as sp
-from utils import display_result, get_derivative, get_second_derivative, graph, graph2
+from utils import display_result, get_derivative, get_second_derivative, graph, graph2, validar_numeros
 
 import metodos_no_lineales
 import Sistemas_ecuaciones_numerico
@@ -400,7 +400,7 @@ def spline_cuadratico_app(cols):
 def spline_lineal_app(cols):
     col1, col2, col3 = cols
     with col1:
-        x_str = st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7")
+        x_str = validar_numeros(st.text_input('Ingrese el vector de coeficientes de x (numeros con espacio, Filas separados por ;)', value="1 3 7"))
     with col2:
         y_str = st.text_input('Ingrese el vector de coeficientes de y correspondientes con x (numeros con espacio, Filas separados por ;)', value="4 5 7")
     with col3:
