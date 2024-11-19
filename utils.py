@@ -133,3 +133,56 @@ def validar_numeros(entrada):
     except ValueError:
         # Si hay un error, la entrada no es válida
         return None
+
+
+def graph_with_points(x_values, y_values, function, x_symbol = sp.symbols("x")):
+
+    function = sp.lambdify(x_symbol, function, "numpy")
+
+    x_min = min(x_values) - 1
+    x_max = max(x_values) + 1
+    x_vals = np.linspace(x_min, x_max, 500)
+    y_vals = [function(x_val) for x_val in x_vals]
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=x_vals, y=y_vals, mode='lines', name='Polynomial P(x)'))
+    fig.add_trace(go.Scatter(x=x_values, y=y_values, mode='markers', name='Data Points'))
+
+
+    fig.update_layout(
+        title=f"Graph of the Interpolation",
+        xaxis_title=str(x_symbol),
+        yaxis_title=f"y",
+        showlegend=True,
+        margin=dict(l=0, r=0, t=40, b=0),
+        hovermode="closest"
+    )
+
+    st.plotly_chart(fig)
+
+    # Add value calculator
+    st.subheader("Calculate Value at Point")
+    x_calc = st.number_input(
+        "Enter x value",
+        value=float(sum(x_vals)/len(x_vals)),
+        min_value=float(min(x_vals)),
+        max_value=float(max(x_vals))
+    )
+    y_calc = float(function(x_calc))
+    st.write(f"Q({x_calc}) = {y_calc}")
+
+    svg_file = "function_graph.svg"
+    pio.write_image(fig, svg_file, format='svg', engine='kaleido')
+
+    
+    # Check if the SVG file was created
+    try:
+        with open(svg_file, "rb") as file:
+            st.download_button(
+                label="Download SVG Image",
+                data=file,
+                file_name="function_graph.svg",
+                mime="image/svg+xml"
+            )
+    except FileNotFoundError:
+        st.error("SVG file not found. Please check if it was created correctly.")
