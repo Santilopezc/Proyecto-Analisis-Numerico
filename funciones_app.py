@@ -413,7 +413,7 @@ def spline_lineal_app(cols):
         st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + (polinomio_eval))
     else:
         st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + str(polinomio_eval))
-    x_vals, y_vals = zip(*sorted(zip(x_str, y_str)))
+    x_vals, y_vals = zip(*sorted(list(float(zip(x_str, y_str)))))
     graph_with_points(x_vals, y_vals, polinomio_sim)
 
 
