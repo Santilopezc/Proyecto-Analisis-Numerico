@@ -181,5 +181,5 @@ def spline_lineal(x_str, y_str, x_i_str):
     # Si x está fuera de los límites de los puntos, devolver None o un mensaje
     if eval == None:
         eval = "Valor de x a evaluar por fuera de los límites"
-    else:
-        return polinomios, eval
+    
+    return polinomios, eval
