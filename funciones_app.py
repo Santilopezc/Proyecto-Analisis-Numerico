@@ -7,6 +7,7 @@ from utils import display_result, get_derivative, get_second_derivative, graph, 
 
 import metodos_no_lineales
 import Sistemas_ecuaciones_numerico
+import Funciones_Interpolacion
 
 def mostrar_ayuda():
     st.sidebar.markdown("## Ayuda General")
