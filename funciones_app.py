@@ -237,7 +237,7 @@ def jacobi_app(cols, error, tol):
         for i in range(len(A.split(";"))):
             dim1 = len(A.split(";")[i].split())
            
-                
+        graph2(aprox,func1,func2, name1,name2 )      
    
         Am = np.array([list(map(float, row.split())) for row in A.split(';')])
         bm = np.array(list(map(float, b.split())))
