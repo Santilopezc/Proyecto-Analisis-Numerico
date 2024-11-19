@@ -29,12 +29,12 @@ def display_result(aprox, table):
     return
 
 def get_derivative(f):
-    x = sp.symbols('x', real=True)
+    x = sp.symbols('x')
     f_prime = sp.diff(f, x)
     f_prime = sp.lambdify(x, f_prime)
     return f_prime
 def get_second_derivative(f):
-    x = sp.symbols('x', real=True)
+    x = sp.symbols('x')
     f_prime = sp.diff(f, x)
     f_prime2 = sp.diff(f_prime, x)
     f_prime2 = sp.lambdify(x, f_prime2)
