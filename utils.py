@@ -125,5 +125,6 @@ def graph2(x, function_input1, function_input2, name1, name2):
                 file_name="function_graph.svg",
                 mime="image/svg+xml"
             )
+            #skdsd
     except FileNotFoundError:
         st.error("SVG file not found. Please check if it was created correctly.")
