@@ -394,8 +394,7 @@ def spline_cuadratico_app(cols):
     polinomio_sim = spline_cubico(x_str, y_str)
 
     st.write("Los polinomios interpolantes para cada intervalo son: " + str(polinomio_sim))
-    for i in polinomio_sim:
-        graph(sp.symbols('x'), i)
+
 
 def spline_lineal_app(cols):
     col1, col2, col3 = cols
@@ -410,8 +409,7 @@ def spline_lineal_app(cols):
     
     st.write("Los polinomios interpolantes para cada intervalo son: " + str(polinomio_sim))
     st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + str(polinomio_eval))
-    for i in polinomio_sim:
-        graph(sp.symbols('x'), i)
+
 
 
 
