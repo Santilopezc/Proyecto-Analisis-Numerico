@@ -49,6 +49,9 @@ if method in ["Newton",  "Raices Multiples", "Polinomio_Newton", "Polinomio_Lagr
     cols = st.columns([1,1])
 if method in ["Jacobi", "Gauss_Seidel", "SOR"]:
     cols = st.columns([1,1])
-
-methods[method](cols, error,tol)
+    
+if method in ["Vandermonde", "Spline_Lineal", "Polinomio_Newton", "Polinomio_Lagrange", "Spline_Cuadratico"]:
+    methods[method](cols)
+else:
+    methods[method](cols, error,tol)
 
