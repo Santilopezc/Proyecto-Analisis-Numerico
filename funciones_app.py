@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 import math
 import sympy as sp
-from utils import display_result, get_derivative, get_second_derivative
+from utils import display_result, get_derivative, get_second_derivative, graph
 
 import metodos_no_lineales
 import Sistemas_ecuaciones_numerico
@@ -78,6 +78,7 @@ def validar_matriz(A_text, b_text):
 def biseccion_app(cols, error,tol):
     col1, col2, col3 = cols
     function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    og_function = function
     function = validar_funcion(function)
     if function:
         #function = eval(f'lambda x: {function}')
@@ -93,10 +94,12 @@ def biseccion_app(cols, error,tol):
         else:
             aprox, table = metodos_no_lineales.bisection(function, a, b, tol, n,True)
             display_result(aprox, table)
+        graph(sp.symbols('x'), og_function)
 
 def regla_falsa_app(cols, error,tol):
     col1, col2, col3 = cols
     function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    og_function = function
     function = validar_funcion(function)
     if function:
         with col1:
@@ -111,10 +114,12 @@ def regla_falsa_app(cols, error,tol):
         else:
             aprox, table = metodos_no_lineales.regla_falsa(function, a, b, tol, n,True)
             display_result(aprox, table)
+        graph(sp.symbols('x'), og_function)
 
 def secante_app(cols,error, tol):
     col1, col2, col3 = cols
     function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    og_function = function
     function = validar_funcion(function)
     if function:
         with col1:
@@ -132,11 +137,13 @@ def secante_app(cols,error, tol):
         else:
             aprox, table = metodos_no_lineales.secante(function, x0, x1, tol, n,True)
             display_result(aprox, table)
+        graph(sp.symbols('x'), og_function)
 
 def newton_app(cols, error, tol):
     # Revisar
     col1, col2 = cols
     function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    og_function = function
     derivada = get_derivative(function)
     function = validar_funcion(function)
     if function:
@@ -152,10 +159,12 @@ def newton_app(cols, error, tol):
         else:
             aprox, table = metodos_no_lineales.newton(function,derivada, x0, tol, n,True)
             display_result(aprox, table)
+        graph(sp.symbols('x'), og_function)
 
 def punto_fijo_app(cols, error, tol):
     col1, col2, col3 = cols
     function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    og_function = function
     function = validar_funcion(function)
     if function:
         with col1:
@@ -173,10 +182,12 @@ def punto_fijo_app(cols, error, tol):
             else:
                 aprox, table = metodos_no_lineales.punto_fijo(function, g,x0, tol, n,True)
                 display_result(aprox, table)
+            graph(sp.symbols('x'), og_function)
 
 def raices_multiples_app(cols, error, tol):
     col1, col2 = cols
     function = st.text_input('Ingrese la función a evaluar', value='exp(-x) + x**2 -13')
+    og_function = function
     derivada = get_derivative(function)
     segunda_derivada = get_second_derivative(function)
     function = validar_funcion(function)
@@ -192,6 +203,8 @@ def raices_multiples_app(cols, error, tol):
         else:
             aprox, table = metodos_no_lineales.raices_multiples(function, derivada, segunda_derivada, x0, tol, n,True)
             display_result(aprox, table)
+        graph(sp.symbols('x'), og_function)
+
 
 def jacobi_app(cols, error, tol):
     col1, col2 = cols

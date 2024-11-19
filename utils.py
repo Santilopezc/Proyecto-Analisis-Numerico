@@ -1,6 +1,11 @@
 import pandas as pd
 import streamlit as st
 import sympy as sp
+import plotly.graph_objs as go
+import plotly.io as pio
+import os
+import numpy as np
+
 def calculate_error(use_sig_digits: bool, x_m: float, x_list: list, index: int):
     if use_sig_digits:
         error = abs((x_m - x_list[index-1]) / x_m)
@@ -37,3 +42,46 @@ def get_second_derivative(f):
     f_prime2 = sp.diff(f_prime, x)
     f_prime2 = sp.lambdify(x, f_prime2)
     return f_prime2
+
+def graph(x, function_input):
+
+    # Create a symbolic function
+    function = sp.lambdify(x, function_input, 'numpy')
+
+    col7, col8 = st.columns(2)
+    with col7:
+        x_min = st.number_input(f"Enter the minimum value for {x}", value=0, step=1)
+    with col8:
+        x_max = st.number_input(f"Enter the maximum value for {x}", value=10, step=1)
+
+    x_vals = np.linspace(x_min, x_max, 1000)
+    y_vals = function(x_vals)
+
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=x_vals, y=y_vals, mode='lines', name=function_input))
+
+    fig.update_layout(
+        title=f"Graph of {function_input}",
+        xaxis_title=str(x),
+        yaxis_title=f"f({str(x)})",
+        showlegend=True,
+        margin=dict(l=0, r=0, t=40, b=0),
+        hovermode="closest"
+    )
+    print("hello")
+
+    st.plotly_chart(fig)
+
+    svg_file = "function_graph.svg"
+    pio.write_image(fig, svg_file, format='svg', engine='kaleido')
+    # Check if the SVG file was created
+    try:
+        with open(svg_file, "rb") as file:
+            st.download_button(
+                label="Download SVG Image",
+                data=file,
+                file_name="function_graph.svg",
+                mime="image/svg+xml"
+            )
+    except FileNotFoundError:
+        st.error("SVG file not found. Please check if it was created correctly.")
