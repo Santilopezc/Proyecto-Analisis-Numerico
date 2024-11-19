@@ -409,7 +409,10 @@ def spline_lineal_app(cols):
     polinomio_sim, polinomio_eval = Funciones_Interpolacion.spline_lineal(x_str, y_str, x_eval)
     
     st.write("Los polinomios interpolantes para cada intervalo son: " + str(polinomio_sim))
-    st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + str(polinomio_eval))
+    if isinstance(polinomio_eval, str):
+        st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + (polinomio_eval))
+    else:
+        st.write("El polinomio interpolante evaluado en "+str(x_eval)+" es: " + str(polinomio_eval))
 
 
 
