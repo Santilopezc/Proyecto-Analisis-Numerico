@@ -1,6 +1,5 @@
 streamlit
 scipy
 sympy
-kaleido
+kaleido ==0.1.*
 plotly
-chromium
